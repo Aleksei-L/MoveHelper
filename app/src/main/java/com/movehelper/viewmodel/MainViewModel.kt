@@ -9,6 +9,7 @@ import com.movehelper.repository.BoxRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.util.Calendar
 import javax.inject.Inject
 
 @HiltViewModel
@@ -18,14 +19,19 @@ class MainViewModel @Inject constructor(
 	private var privateListOfBoxes = MutableLiveData<List<Box>>()
 	val listOfBoxes: LiveData<List<Box>> = privateListOfBoxes
 
-	fun storeNexBox(name: String) = viewModelScope.launch {
-		boxRepository.storeNewBox(Box(123, name))
+	init {
+		updateListOfBoxes()
 	}
 
-	init {
-		viewModelScope.launch {
-			privateListOfBoxes.postValue(boxRepository.getAllBoxes())
-			Timber.i("MainViewModel: privateListOfBoxes field was updated")
+	private fun updateListOfBoxes() = viewModelScope.launch {
+		privateListOfBoxes.postValue(boxRepository.getAllBoxes())
+		Timber.i("MainViewModel: privateListOfBoxes field was updated")
+	}
+
+	fun storeNewBox(name: String) = viewModelScope.launch {
+		val newBox = Box(Calendar.getInstance().timeInMillis.toInt() % 100, name)
+		boxRepository.storeNewBox(newBox) {
+			updateListOfBoxes()
 		}
 	}
 }

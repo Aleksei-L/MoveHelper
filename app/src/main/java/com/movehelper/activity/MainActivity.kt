@@ -1,10 +1,13 @@
 package com.movehelper.activity
 
+import android.icu.util.Calendar
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import com.movehelper.compose.MoveHelperApp
 import com.movehelper.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,12 +20,12 @@ class MainActivity : ComponentActivity() {
 		super.onCreate(savedInstanceState)
 		enableEdgeToEdge()
 		setContent {
+			val listOfBoxes by vm.listOfBoxes.observeAsState(initial = emptyList())
 			MoveHelperApp(
 				onAddButtonClicked = {
-					vm.storeNexBox("Android")
+					vm.storeNewBox("${Calendar.getInstance().timeInMillis}")
 				},
-				context = this,
-				vm = vm
+				boxesList = listOfBoxes
 			)
 		}
 	}

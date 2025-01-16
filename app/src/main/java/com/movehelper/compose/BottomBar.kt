@@ -15,7 +15,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.movehelper.R
 
 @Composable
-fun BottomBar(onAddButtonClick: () -> Unit, modifier: Modifier = Modifier) {
+fun BottomBar(
+	onAddButtonClick: () -> Unit,
+	modifier: Modifier = Modifier
+) {
 	BottomAppBar(
 		actions = {
 			IconButton(

@@ -10,13 +10,15 @@ import javax.inject.Inject
 class BoxRepository @Inject constructor(
 	private val boxDao: BoxDao
 ) {
-	suspend fun getAllBoxes() = withContext(Dispatchers.IO) {
+	suspend fun getAllBoxes(): List<Box> = withContext(Dispatchers.IO) {
 		Timber.i("BoxRepository: getAllBoxes()")
-		boxDao.getAllBoxes()
+		return@withContext boxDao.getAllBoxes()
 	}
 
-	suspend fun storeNewBox(box: Box) = withContext(Dispatchers.IO) {
-		Timber.i("BoxRepository: storeNewBox($box)")
-		boxDao.insertBox(box)
-	}
+	suspend fun storeNewBox(box: Box, afterInsertCallback: () -> Unit) =
+		withContext(Dispatchers.IO) {
+			Timber.i("BoxRepository: storeNewBox($box)")
+			boxDao.insertBox(box)
+			afterInsertCallback()
+		}
 }
