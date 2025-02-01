@@ -15,10 +15,28 @@ class BoxRepository @Inject constructor(
 		return@withContext boxDao.getAllBoxes()
 	}
 
-	suspend fun storeNewBox(box: Box, afterInsertCallback: () -> Unit) =
+	suspend fun storeNewBox(boxName: String, afterInsertCallback: () -> Unit) =
 		withContext(Dispatchers.IO) {
-			Timber.i("BoxRepository: storeNewBox($box)")
-			boxDao.insertBox(box)
+			val boxId = generateBoxId()
+			Timber.i("BoxRepository: storeNewBox(Box($boxId, $boxName))")
+			boxDao.insertBox(Box(boxId, boxName))
 			afterInsertCallback()
 		}
+
+	private suspend fun getBoxById(id: String): Box? = withContext(Dispatchers.IO) {
+		Timber.i("BoxRepository: getBoxById($id)")
+		return@withContext boxDao.getBoxById(id)
+	}
+
+	private suspend fun generateBoxId(): String {
+		var boxId = (0..999).random()
+		while (getBoxById(boxId.toString()) != null)
+			boxId = (0..999).random()
+		Timber.i("BoxRepository: id $boxId was generated")
+		return when (boxId.toString().length) {
+			1 -> "00$boxId"
+			2 -> "0$boxId"
+			else -> boxId.toString()
+		}
+	}
 }

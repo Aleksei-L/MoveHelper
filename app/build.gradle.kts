@@ -70,4 +70,7 @@ dependencies {
 
 	// Логирование
 	implementation(libs.timber)
+
+	// Навигация
+	implementation(libs.compose.navigation)
 }

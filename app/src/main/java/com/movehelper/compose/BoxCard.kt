@@ -1,12 +1,8 @@
 package com.movehelper.compose
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Call
-import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -25,22 +21,30 @@ import com.movehelper.R
 import com.movehelper.ui.MoveHelperTheme
 
 @Composable
-fun ItemCard(number: Int, message: String, modifier: Modifier = Modifier) {
+fun BoxCard(
+	id: String,
+	message: String,
+	modifier: Modifier = Modifier
+) {
 	MoveHelperTheme {
 		Card(modifier = modifier.fillMaxWidth()) {
 			Row(
 				modifier = Modifier
 					.padding(all = 8.dp)
 					.fillMaxWidth(),
-				verticalAlignment = Alignment.CenterVertically,
-				horizontalArrangement = Arrangement.SpaceBetween //TODO
+				verticalAlignment = Alignment.CenterVertically
 			) {
 				Text(
-					text = number.toString(),
+					text = id,
 					fontFamily = FontFamily(Font(R.font.share_tech_mono)),
 					fontSize = 32.sp
 				)
-				Text(text = message)
+				Text(
+					text = message,
+					modifier = Modifier
+						.padding(start = 16.dp)
+						.weight(1f)
+				)
 				IconButton(
 					onClick = { } //TODO
 				) {
@@ -56,6 +60,6 @@ fun ItemCard(number: Int, message: String, modifier: Modifier = Modifier) {
 
 @Preview(showBackground = true)
 @Composable
-private fun ItemCardPreview() {
-	ItemCard(123, "Android")
+private fun BoxCardPreview() {
+	BoxCard("123", "Android")
 }

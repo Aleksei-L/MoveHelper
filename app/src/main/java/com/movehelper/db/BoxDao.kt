@@ -12,6 +12,9 @@ interface BoxDao {
 	@Query("SELECT * FROM Box")
 	fun getAllBoxes(): List<Box>
 
+	@Query("SELECT * FROM Box WHERE id = :id")
+	fun getBoxById(id: String): Box?
+
 	@Insert(onConflict = OnConflictStrategy.REPLACE)
 	fun insertBox(box: Box)
 

@@ -15,7 +15,7 @@ import com.movehelper.data.Box
 import com.movehelper.ui.MoveHelperTheme
 
 @Composable
-fun MoveHelperApp(
+fun MainScreen(
 	onAddButtonClicked: () -> Unit,
 	boxesList: List<Box>,
 	modifier: Modifier = Modifier
@@ -26,10 +26,14 @@ fun MoveHelperApp(
 			bottomBar = { BottomBar(onAddButtonClicked) },
 			modifier = modifier.background(MaterialTheme.colorScheme.background)
 		) { innerPadding ->
-			Surface(modifier = Modifier.padding(innerPadding)) {
+			Surface(
+				modifier = Modifier
+					.padding(innerPadding)
+					.background(MaterialTheme.colorScheme.background) //TODO
+			) {
 				LazyColumn(modifier = Modifier.fillMaxHeight()) {
 					items(boxesList) {
-						ItemCard(it.id, it.name)
+						BoxCard(it.id, it.name)
 					}
 				}
 			}
@@ -39,6 +43,6 @@ fun MoveHelperApp(
 
 @Preview(showBackground = true)
 @Composable
-private fun MoveHelperAppPreview() {
-	MoveHelperApp({}, listOf(Box(123, "One"), Box(456, "two")))
+private fun MainScreenPreview() {
+	MainScreen({}, listOf(Box("123", "One"), Box("456", "two")))
 }

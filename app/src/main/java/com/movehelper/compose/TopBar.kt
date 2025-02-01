@@ -24,7 +24,7 @@ fun TopBar(modifier: Modifier = Modifier) {
 		},
 		colors = TopAppBarDefaults.topAppBarColors(
 			containerColor = MaterialTheme.colorScheme.primaryContainer,
-			titleContentColor = MaterialTheme.colorScheme.primary,
+			titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
 		),
 		actions = {
 			IconButton(onClick = { }) { //TODO

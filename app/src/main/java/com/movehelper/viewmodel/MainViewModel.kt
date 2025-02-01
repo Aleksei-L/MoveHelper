@@ -9,7 +9,6 @@ import com.movehelper.repository.BoxRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import java.util.Calendar
 import javax.inject.Inject
 
 @HiltViewModel
@@ -28,9 +27,10 @@ class MainViewModel @Inject constructor(
 		Timber.i("MainViewModel: privateListOfBoxes field was updated")
 	}
 
-	fun storeNewBox(name: String) = viewModelScope.launch {
-		val newBox = Box(Calendar.getInstance().timeInMillis.toInt() % 100, name)
-		boxRepository.storeNewBox(newBox) {
+	fun saveNewBox(boxName: String?) = viewModelScope.launch {
+		if (boxName == null)
+			TODO()
+		boxRepository.storeNewBox(boxName) {
 			updateListOfBoxes()
 		}
 	}
