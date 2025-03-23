@@ -10,36 +10,35 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.movehelper.R
 
-@OptIn(ExperimentalMaterial3Api::class) //TODO WTF
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopBar(modifier: Modifier = Modifier) {
+fun MainTopBar(
+	onSettingsClick: () -> Unit
+) {
 	CenterAlignedTopAppBar(
 		title = {
 			Text(stringResource(R.string.app_name))
 		},
 		colors = TopAppBarDefaults.topAppBarColors(
-			containerColor = MaterialTheme.colorScheme.primaryContainer,
-			titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+			containerColor = MaterialTheme.colorScheme.primaryContainer
 		),
 		actions = {
-			IconButton(onClick = { }) { //TODO
+			IconButton(onClick = onSettingsClick) {
 				Icon(
 					imageVector = Icons.Rounded.Settings,
 					contentDescription = stringResource(R.string.settings_tip)
 				)
 			}
-		},
-		modifier = modifier
+		}
 	)
 }
 
 @Preview(showBackground = true)
 @Composable
-private fun TopBarPreview() {
-	TopBar()
+private fun MainTopBarPreview() {
+	MainTopBar {}
 }

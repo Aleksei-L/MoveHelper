@@ -13,16 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MoveHelper"
         tools:targetApi="31">
-        <activity
-            android:name=".activity.AddBoxActivity"
-            android:exported="false"
-            android:label="@string/title_activity_add_box"
-            android:parentActivityName=".activity.MainActivity"
-            android:theme="@style/Theme.MoveHelper" />
+
         <activity
             android:name=".activity.MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.MoveHelper">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,6 +24,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

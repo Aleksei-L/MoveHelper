@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import com.movehelper.compose.navigation.MoveHelperApp
+import com.movehelper.compose.MoveHelperApp
 import com.movehelper.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 

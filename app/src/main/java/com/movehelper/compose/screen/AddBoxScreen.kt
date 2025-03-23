@@ -1,4 +1,4 @@
-package com.movehelper.compose
+package com.movehelper.compose.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -19,18 +19,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.movehelper.R
+import com.movehelper.compose.CommonTopBar
 import com.movehelper.ui.MoveHelperTheme
 
 @Composable
 fun AddBoxScreen(
 	savedBoxName: String? = null,
+	onBackClick: () -> Unit,
 	saveBox: (String?) -> Unit
 ) {
 	MoveHelperTheme {
-		var boxName by remember { mutableStateOf(savedBoxName) }
-
 		Scaffold(
-			topBar = { }, //TODO
+			topBar = { CommonTopBar(stringResource(R.string.add_new_box), onBackClick) },
 			modifier = Modifier.background(MaterialTheme.colorScheme.background)
 		) { innerPadding ->
 			Column(
@@ -39,11 +39,11 @@ fun AddBoxScreen(
 					.fillMaxSize(),
 				horizontalAlignment = Alignment.CenterHorizontally
 			) {
+				var boxName by remember { mutableStateOf(savedBoxName) }
+
 				TextField(
 					value = boxName ?: "",
-					onValueChange = { newValue ->
-						boxName = newValue
-					},
+					onValueChange = { boxName = it },
 					singleLine = true
 				)
 
@@ -58,5 +58,5 @@ fun AddBoxScreen(
 @Preview
 @Composable
 private fun AddBoxScreenPreview() {
-	AddBoxScreen(savedBoxName = "Box 1", saveBox = {})
+	AddBoxScreen(savedBoxName = "Box 1", saveBox = {}, onBackClick = {})
 }
