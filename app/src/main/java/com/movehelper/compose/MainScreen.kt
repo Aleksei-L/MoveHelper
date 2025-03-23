@@ -9,22 +9,24 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.movehelper.data.Box
 import com.movehelper.ui.MoveHelperTheme
+import com.movehelper.viewmodel.MainViewModel
 
 @Composable
 fun MainScreen(
-	onAddButtonClicked: () -> Unit,
-	boxesList: List<Box>,
-	modifier: Modifier = Modifier
+	vm: MainViewModel,
+	onAddButtonClicked: () -> Unit
 ) {
+	val boxesList by vm.listOfBoxes.observeAsState(emptyList())
+
 	MoveHelperTheme {
 		Scaffold(
 			topBar = { TopBar() },
 			bottomBar = { BottomBar(onAddButtonClicked) },
-			modifier = modifier.background(MaterialTheme.colorScheme.background)
+			modifier = Modifier.background(MaterialTheme.colorScheme.background)
 		) { innerPadding ->
 			Surface(
 				modifier = Modifier
@@ -39,10 +41,4 @@ fun MainScreen(
 			}
 		}
 	}
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun MainScreenPreview() {
-	MainScreen({}, listOf(Box("123", "One"), Box("456", "two")))
 }

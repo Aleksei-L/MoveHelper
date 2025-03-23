@@ -23,15 +23,15 @@ import com.movehelper.ui.MoveHelperTheme
 
 @Composable
 fun AddBoxScreen(
-	saveBox: (String?) -> Unit,
 	savedBoxName: String? = null,
-	modifier: Modifier = Modifier
+	saveBox: (String?) -> Unit
 ) {
 	MoveHelperTheme {
 		var boxName by remember { mutableStateOf(savedBoxName) }
+
 		Scaffold(
 			topBar = { }, //TODO
-			modifier = modifier.background(MaterialTheme.colorScheme.background)
+			modifier = Modifier.background(MaterialTheme.colorScheme.background)
 		) { innerPadding ->
 			Column(
 				modifier = Modifier
