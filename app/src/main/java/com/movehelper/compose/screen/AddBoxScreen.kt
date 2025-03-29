@@ -19,7 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.movehelper.R
-import com.movehelper.compose.CommonTopBar
+import com.movehelper.compose.topbar.CommonTopBar
 import com.movehelper.ui.MoveHelperTheme
 
 @Composable

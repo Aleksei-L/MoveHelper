@@ -22,7 +22,7 @@ import com.movehelper.ui.MoveHelperTheme
 
 @Composable
 fun BoxCard(
-	id: String,
+	id: Int,
 	message: String,
 	modifier: Modifier = Modifier
 ) {
@@ -35,7 +35,11 @@ fun BoxCard(
 				verticalAlignment = Alignment.CenterVertically
 			) {
 				Text(
-					text = id,
+					text = when (id.toString().length) {
+						1 -> "00$id"
+						2 -> "0$id"
+						else -> id.toString()
+					},
 					fontFamily = FontFamily(Font(R.font.share_tech_mono)),
 					fontSize = 32.sp
 				)
@@ -60,6 +64,18 @@ fun BoxCard(
 
 @Preview(showBackground = true)
 @Composable
-private fun BoxCardPreview() {
-	BoxCard("123", "Android")
+private fun BoxCardPreview1() {
+	BoxCard(123, "Android")
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun BoxCardPreview2() {
+	BoxCard(12, "Android")
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun BoxCardPreview3() {
+	BoxCard(1, "Android")
 }

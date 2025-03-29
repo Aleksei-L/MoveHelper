@@ -5,7 +5,6 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Box(
-	@PrimaryKey val id: String,
-	val name: String,
-	//TODO val things: List<Thing>
+	@PrimaryKey val id: Int,
+	val name: String
 )

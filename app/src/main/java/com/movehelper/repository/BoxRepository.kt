@@ -1,6 +1,7 @@
 package com.movehelper.repository
 
 import com.movehelper.data.Box
+import com.movehelper.data.Thing
 import com.movehelper.db.BoxDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -23,20 +24,20 @@ class BoxRepository @Inject constructor(
 			afterInsertCallback()
 		}
 
-	private suspend fun getBoxById(id: String): Box? = withContext(Dispatchers.IO) {
+	private suspend fun getBoxById(id: Int): Box? = withContext(Dispatchers.IO) {
 		Timber.i("BoxRepository: getBoxById($id)")
 		return@withContext boxDao.getBoxById(id)
 	}
 
-	private suspend fun generateBoxId(): String {
+	private suspend fun generateBoxId(): Int {
 		var boxId = (0..999).random()
-		while (getBoxById(boxId.toString()) != null)
+		while (getBoxById(boxId) != null)
 			boxId = (0..999).random()
 		Timber.i("BoxRepository: id $boxId was generated")
-		return when (boxId.toString().length) {
-			1 -> "00$boxId"
-			2 -> "0$boxId"
-			else -> boxId.toString()
-		}
+		return boxId
+	}
+
+	suspend fun getAllThings(): List<Thing> = withContext(Dispatchers.IO) {
+		return@withContext boxDao.getAllThings()
 	}
 }

@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.movehelper.data.Box
+import com.movehelper.data.Thing
 import com.movehelper.repository.BoxRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -15,15 +16,19 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
 	private val boxRepository: BoxRepository
 ) : ViewModel() {
-	private var privateListOfBoxes = MutableLiveData<List<Box>>()
-	val listOfBoxes: LiveData<List<Box>> = privateListOfBoxes
+	private val mListOfBoxes = MutableLiveData<List<Box>>()
+	val listOfBoxes: LiveData<List<Box>> = mListOfBoxes
+
+	private val mListOfThings = MutableLiveData<List<Thing>>()
+	val listOfThings: LiveData<List<Thing>> = mListOfThings
 
 	init {
 		updateListOfBoxes()
+		getAllThings() //TODO
 	}
 
 	private fun updateListOfBoxes() = viewModelScope.launch {
-		privateListOfBoxes.postValue(boxRepository.getAllBoxes())
+		mListOfBoxes.postValue(boxRepository.getAllBoxes())
 		Timber.i("MainViewModel: privateListOfBoxes field was updated")
 	}
 
@@ -33,5 +38,10 @@ class MainViewModel @Inject constructor(
 		boxRepository.storeNewBox(boxName) {
 			updateListOfBoxes()
 		}
+	}
+
+	private fun getAllThings() = viewModelScope.launch {
+		val thingsInBoxes = boxRepository.getAllThings()
+		mListOfThings.postValue(thingsInBoxes)
 	}
 }

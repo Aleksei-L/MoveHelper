@@ -4,6 +4,10 @@
     <!-- AddBoxScreen -->
     <string name="add_new_box">Добавить коробку</string>
 
+    <!-- Подписи для вкладок -->
+    <string name="tab_boxes">Коробки</string>
+    <string name="tab_things">Вещи</string>
+
     <!-- Описания элементов для людей с ограниченными возможностями -->
     <string name="qr_code_tip">Показать QR код</string>
     <string name="add_new_box_tip">Добавить новую коробку</string>

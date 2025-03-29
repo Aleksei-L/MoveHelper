@@ -1,4 +1,4 @@
-package com.movehelper.compose
+package com.movehelper.compose.topbar
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Settings
